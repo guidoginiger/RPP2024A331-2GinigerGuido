@@ -9,38 +9,39 @@
 </head>
 
 <body>
-
-    <!-- FORMULARIO DATOS -->
+    <!-- PUNTO 3) FORMULARIO DATOS -->
     <form id="formulario_datos">
         <h1>Form Datos</h1>
 
         <!-- FILTRAR POR -->
-        <div class="flex-container">
+        <div class="contenedor">
             <label for="filtro">Filtrar por:</label>
             <select id="filtro" name="filtro">
                 <option value="todos">Todos</option>
-                <option value="terrestre">Terrestre</option>
-                <option value="aereo">Aereo</option>
+                <option value="futbolista">Futbolistas</option>
+                <option value="profesional">Profesionales</option>
             </select>
         </div>
 
         <!-- CHECKBOXES -->
         <div class="checkbox">
             <input type="checkbox" id="id_checkbox" name="id" value="id" checked> ID
-            <input type="checkbox" id="modelo_checkbox" name="modelo" value="modelo" checked> Modelo
-            <input type="checkbox" id="anoFab_checkbox" name="anoFab" value="anoFab" checked> Año de fabricación
-            <input type="checkbox" id="velMax_checkbox" name="velMax" value="velMax" checked> Velocidad máxima
-            <input type="checkbox" id="altMax_checkbox" name="altMax" value="altMax" checked> Altura máxima
-            <input type="checkbox" id="autonomia_checkbox" name="autonomia" value="autonomia" checked> Autonomía
-            <input type="checkbox" id="cantPue_checkbox" name="cantPue" value="cantPue" checked> Cantidad de puertas
-            <input type="checkbox" id="cantRue_checkbox" name="cantRue" value="cantRue" checked> Cantidad de ruedas
+            <input type="checkbox" id="nombre_checkbox" name="nombre" value="nombre" checked> Nombre
+            <input type="checkbox" id="apellido_checkbox" name="apellido" value="apellido" checked> Apellido
+            <input type="checkbox" id="edad_checkbox" name="edad" value="edad" checked> Edad
+            <input type="checkbox" id="equipo_checkbox" name="equipo" value="equipo" checked> Equipo
+            <input type="checkbox" id="posicion_checkbox" name="posicion" value="posicion" checked> Posicion
+            <input type="checkbox" id="cantGoles_checkbox" name="cant_Goles" value="cantGoles" checked> CantGoles
+            <input type="checkbox" id="titulo_checkbox" name="titulo" value="titulo" checked> Titulo
+            <input type="checkbox" id="facultad_checkbox" name="facultad" value="facultad" checked> Facultad
+            <input type="checkbox" id="anoGrad_checkbox" name="ano_Grad" value="añoGrad" checked> AñoGrad
         </div>
 
-        <!-- CALCULAR PROMEDIO VELOCIDAD MAXIMA -->
-        <div class="flex-container">
-            <label id="promedio_velMax">Promedio Velocidad Maxima:</label>
-            <input type="num" id="input_prom_vel_max" readonly>
-            <button type="button" onclick="calcularPromVelMax()">Calcular</button>
+        <!-- CALCULAR EDAD PROMEDIO -->
+        <div class="contenedor">
+            <label id="edad_promedio">Calcular Edad Promedio:</label>
+            <input type="num" id="input_edad_promedio" readonly>
+            <button type="button" onclick="calcularEdadPromedio()">Calcular</button>
         </div>
 
         <p id="mensaje_error"></p>
@@ -52,13 +53,15 @@
             <thead id="encabezado_tabla">
                 <tr>
                     <th>ID</th>
-                    <th>Modelo</th>
-                    <th>Año de fabricación</th>
-                    <th>Velocidad maxima</th>
-                    <th>Altura maxima</th>
-                    <th>Autonomia</th>
-                    <th>Cantidad de puertas</th>
-                    <th>Cantidad de ruedas</th>
+                    <th>Nombre</th>
+                    <th>Apellido</th>
+                    <th>Edad</th>
+                    <th>Equipo</th>
+                    <th>Posicion</th>
+                    <th>CantGoles</th>
+                    <th>Titulo</th>
+                    <th>Facultad</th>
+                    <th>AñoGrad</th>
                 </tr>
             </thead>
 
@@ -83,9 +86,9 @@
 
         <br>
 
-        <!-- BOTON AGREGAR VEHICULO -->
+        <!-- BOTON AGREGAR PERSONA -->
         <div>
-            <button type="button" onclick="agregarVehiculo()">Agregar</button>
+            <button type="button" onclick="agregarPersona()">Agregar</button>
         </div>
 
     </form>
@@ -98,33 +101,33 @@
             <h1>Formulario ABM</h1>
 
             <!-- ID -->
-            <div class="flex-container">
-                <label for="id_vehiculo">ID: </label>
-                <input type="number" id="id_vehiculo" name="id_vehiculo" readonly>
+            <div class="contenedor">
+                <label for="id_persona">ID: </label>
+                <input type="number" id="id_persona" name="id_persona" readonly>
             </div>
 
-            <!-- MODELO -->
-            <div class="flex-container">
-                <label for="modelo">Modelo: </label>
-                <input type="text" id="modelo" name="modelo">
+            <!-- NOMBRE -->
+            <div class="contenedor">
+                <label for="nombre">Nombre: </label>
+                <input type="text" id="nombre" name="nombre">
             </div>
 
-            <!-- AÑO FABRICACION -->
-            <div class="flex-container">
-                <label for="anoFab">Año fabricacion: </label>
-                <input type="text" id="anoFab" name="anoFab">
+            <!-- APELLIDO -->
+            <div class="contenedor">
+                <label for="apellido">Apellido: </label>
+                <input type="text" id="apellido" name="apellido">
             </div>
 
-            <!-- VELOCIDAD MAXIMA -->
-            <div class="flex-container">
-                <label for="velMax">Velocidad máxima: </label>
-                <input type="number" id="velMax" name="velMax">
+            <!-- EDAD -->
+            <div class="contenedor">
+                <label for="edad">Edad: </label>
+                <input type="number" id="edad" name="edad">
             </div>
 
-            <p id="mensaje_error_abm" style="color: yellow;"></p>
+            <p id="mensaje_error_abm"></p>
 
             <!-- TIPO -->
-            <div class="flex-container">
+            <div class="contenedor">
                 <label for="tipo">Tipo: </label>
                 <select id="tipo" name="tipo">
                     <option value="" selected disabled>Seleccionar tipo </option>
@@ -136,7 +139,7 @@
             <div id="botones_fin_form"></div>
     
             <!-- BOTONES ACEPTAR / MODIFICAR / ELIMINAR / CANCELAR -->
-            <div class="flex-container">
+            <div class="contenedor">
                     <button type="button" id='botonAceptar' onclick="guardarDatos()">Aceptar </button>
                     <!-- 
                     <button type="button" id='botonModificar' onclick="modificarDatos()">Modificar </button>
@@ -152,75 +155,79 @@
 
     <!-- SCRIPT, JAVASCRIPT -->
     <script>
-        class Vehiculo
+
+        // PUNTO 1)
+        class Persona
         {
-            constructor(id, modelo, anoFab, velMax){
+            constructor(id, nombre, apellido, edad){
                 this.id = id;
-                this.modelo = modelo;
-                this.anoFab = anoFab;
-                this.velMax = velMax;
+                this.nombre = nombre;
+                this.apellido = apellido;
+                this.edad = edad;
             }
 
             toString()
             {
-                return `Id: ${this.id}, Modelo: ${this.modelo}, Año Fab: ${this.anoFab}, Velocidad Maxima: ${this.velMax}`;
+                return `Id: ${this.id}, Nombre: ${this.nombre}, Apellido: ${this.apellido}, Edad: ${this.edad}`;
             }
         }
 
-        class Aereo extends Vehiculo
+        class Futbolista extends Persona
         {
-            constructor(id, modelo, anoFab, velMax, altMax, autonomia)
+            constructor(id, nombre, apellido, edad, equipo, posicion, cantidadGoles)
             {
-                super(id, modelo, anoFab, velMax);
+                super(id, nombre, apellido, edad);
 
-                this.altMax = altMax;
-                this.autonomia = autonomia;
+                this.equipo = equipo;
+                this.posicion = posicion;
+                this.cantidadGoles = cantidadGoles;
             }
 
             toString()
             {
-                return `${super.toString()}, Altura Maxima: ${this.altMax}, Autonomia: ${this.autonomia}`;
+                return `${super.toString()}, Equipo: ${this.equipo}, Posicion: ${this.posicion}, Cantidad de goles: ${this.cantidadGoles}`;
             }
         }
 
-        class Terrestre extends Vehiculo
+        class Profesional extends Persona
         {
-            constructor(id, modelo, anoFab, velMax, cantPue, cantRue)
+            constructor(id, nombre, apellido, edad, titulo, facultad, anoGraduacion)
             {
-                super(id, modelo, anoFab, velMax);
+                super(id, nombre, apellido, edad);
 
-                this.cantPue = cantPue;
-                this.cantRue = cantRue;
+                this.titulo = titulo;
+                this.facultad = facultad;
+                this.anoGraduacion = anoGraduacion;
             }
 
             toString()
             {
-                return `${super.toString()}, Cant puertas: ${this.cantPue}, Cant ruedas: ${this.cantRue}`;
+                return `${super.toString()}, Titulo: ${this.titulo}, Facultad: ${this.facultad}, Año de Graduación: ${this.anoGraduacion}`;
             }
             
         }
 
+        // PUNTO 2)
+        var personas_json = '[{"id":1, "nombre":"Marcelo", "apellido":"Luque", "edad":45, "titulo":"Ingeniero", "facultad":"UTN", "añoGraduacion":2002},{"id":2, "nombre":"Ramiro", "apellido":"Escobar", "edad":35, "titulo":"Medico", "facultad":"UBA", "añoGraduacion":20012},{"id":3, "nombre":"Facundo", "apellido":"Cairo", "edad":30, "titulo":"Abogado", "facultad":"UCA", "añoGraduacion":2017},{"id":4, "nombre":"Fernando", "apellido":"Nieto", "edad":18, "equipo":"Independiente", "posicion":"Delantero", "cantidadGoles":7},{"id":5, "nombre":"Manuel", "apellido":"Loza", "edad":20, "equipo":"Racing", "posicion":"Volante", "cantidadGoles":2},{"id":6, "nombre":"Nicolas", "apellido":"Serrano", "edad":23, "equipo":"Boca", "posicion":"Arquero", "cantidadGoles":0}]';
+        var personas_array = JSON.parse(personas_json);
 
-        var vehiculos_json = '[{"id":14, "modelo":"Ferrari F100", "anoFab":1998, "velMax":400, "cantPue":2, "cantRue":4},{"id":51, "modelo":"Dodge Viper", "anoFab":1991, "velMax":266, "cantPue":2, "cantRue":4},{"id":67, "modelo":"Boeing CH-47 Chinook", "anoFab":1962, "velMax":302, "altMax":6, "autonomia":1200},{"id":666, "modelo":"Aprilia RSV 1000 R", "anoFab":2004, "velMax":280, "cantPue":0, "cantRue":2},{"id":872, "modelo":"Boeing 747-400", "anoFab":1989, "velMax":988, "altMax":13, "autonomia":13450},{"id":742, "modelo":"Cessna CH-1 SkyhookR", "anoFab":1953, "velMax":174, "altMax":3, "autonomia":870}]';
-        var vehiculos_array = JSON.parse(vehiculos_json);
+        var personas_instanciadas_array = [];
 
-        var vehiculos_instanciados_array = [];
+        personas_array.forEach(persona => {
 
-        vehiculos_array.forEach(vehiculo => {
-
-            if(vehiculo.altMax !== undefined && vehiculo.autonomia !== undefined)
+            if(persona.equipo !== undefined && persona.posicion !== undefined && persona.cantidadGoles !== undefined)
             {
-                let vehiculo_aereo = new Aereo(vehiculo.id, vehiculo.modelo, vehiculo.anoFab, vehiculo.velMax, vehiculo.altMax, vehiculo.autonomia);
-                vehiculos_instanciados_array.push(vehiculo_aereo);                
+                let personaFutbolista = new Futbolista(persona.id, persona.nombre, persona.apellido, persona.edad, persona.equipo, persona.posicion, persona.cantidadGoles);
+                personas_instanciadas_array.push(personaFutbolista);                
             }
-            else if(vehiculo.cantPue !== undefined && vehiculo.cantRue !== undefined)
+            else if(persona.titulo !== undefined && persona.facultad !== undefined && persona.anoGraduacion!== undefined)
             {
-                let vehiculo_terrestre = new Terrestre(vehiculo.id, vehiculo.modelo, vehiculo.anoFab, vehiculo.velMax, vehiculo.cantPue, vehiculo.cantRue);
-                vehiculos_instanciados_array.push(vehiculo_terrestre);
+                let personaProfesional = new Profesional(persona.id, persona.nombre, persona.apellido, persona.edad, persona.titulo, persona.facultad, persona.anoGraduacion);
+                personas_instanciadas_array.push(personaProfesional);
             }
         });
 
-        // --- Funciones ---
+        // FUNCIONES
         function mayusculaPrimerLetra(palabra)
         {
             return palabra.charAt(0).toUpperCase() + palabra.slice(1);
@@ -260,7 +267,7 @@
             mostrar();
         }
 
-        function calcularPromVelMax()
+        function calcularEdadPromedio()
         {
             let filtro = document.getElementById('filtro').value;
             let vehiculos_filtrados;
@@ -281,7 +288,7 @@
             let suma = vehiculos_filtrados.reduce((acumulador, vehiculo) => acumulador + vehiculo.velMax, 0);
             let promedio = (suma / vehiculos_filtrados.length).toFixed(2);
 
-            document.getElementById('input_prom_vel_max').value = promedio;
+            document.getElementById('input_edad_promedio').value = promedio;
         }
 
         document.querySelectorAll('input[type="checkbox"]').forEach(checkbox => {
@@ -378,9 +385,9 @@
         }
 
 
-        function obtenerVehiculoABM(id_vehiculo)
+        function obtenerVehiculoABM(id_persona)
         {
-            document.getElementById('id_vehiculo').value = id_vehiculo;
+            document.getElementById('id_persona').value = id_persona;
 
             document.getElementById('formulario_datos').style.display = 'none';
             document.getElementById('mostrarFormularioBtn').style.display = 'block';
@@ -392,7 +399,7 @@
             const camposAdicionales = document.getElementById('botones_fin_form');
             camposAdicionales.innerHTML = '';
 
-            let vehiculo = vehiculos_instanciados_array.find(vehiculo => vehiculo.id === id_vehiculo);
+            let vehiculo = vehiculos_instanciados_array.find(vehiculo => vehiculo.id === id_persona);
             document.getElementById('modelo').value = vehiculo.modelo;
             document.getElementById('anoFab').value = vehiculo.anoFab;
             document.getElementById('velMax').value = vehiculo.velMax;
@@ -423,7 +430,7 @@
 
         function modificarDatos()
         {
-            let id_vehiculo = document.getElementById('id_vehiculo').value;
+            let id_persona = document.getElementById('id_persona').value;
             let modelo = document.getElementById('modelo').value;
             let anoFab = document.getElementById('anoFab').value;
             let velMax = document.getElementById('velMax').value;
@@ -435,7 +442,7 @@
 
             let mensaje = document.getElementById("mensaje_error_abm");
 
-            let vehiculo = vehiculos_instanciados_array.find(vehiculo => vehiculo.id === id_vehiculo);
+            let vehiculo = vehiculos_instanciados_array.find(vehiculo => vehiculo.id === id_persona);
 
             if (!vehiculo)
             {
@@ -479,7 +486,7 @@
             }
         }
 
-        function agregarVehiculo()
+        function agregarPersona()
         {
             document.getElementById('formulario_datos').style.display = 'none';
             document.getElementById('mostrarFormularioBtn').style.display = 'block';
@@ -494,8 +501,8 @@
 
         function eliminarVehiculo()
         {            
-            let id_vehiculo = document.getElementById('id_vehiculo').value;
-            let indice = vehiculos_instanciados_array.findIndex(vehiculo => vehiculo.id === id_vehiculo);
+            let id_persona = document.getElementById('id_persona').value;
+            let indice = vehiculos_instanciados_array.findIndex(vehiculo => vehiculo.id === id_persona);
             let vehiculo = vehiculos_instanciados_array[indice];
 
             if (indice === -1) {
@@ -526,7 +533,7 @@
                 checkbox.checked = false;
             });
 
-            document.getElementById('input_prom_vel_max').value = "";
+            document.getElementById('input_edad_promedio').value = "";
         }
 
         function guardarDatos()
