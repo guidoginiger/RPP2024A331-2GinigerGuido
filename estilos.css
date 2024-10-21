@@ -1,0 +1,92 @@
+*{
+    background-color: white;
+    color: black;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    font-size: 20px;
+}
+
+body{
+    padding: 10px;
+    margin: 2px;
+}
+
+h1{
+    color: white;
+    background-color: darkblue;
+    font-size: 40px;    
+    text-align: center;
+    border: 5px solid blue;
+    border-radius: 10px;
+}
+
+.flex-container{
+    display: flex;
+    align-items: center;
+    padding: 5px 0;
+    gap: 15px;
+}
+
+/* CHECKBOXES */
+.checkbox{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 7px;
+}
+
+/* FORMULARIOS */
+#formulario_datos, #formulario_abm {
+    background-color: white;
+    border: 5px double darkblue; 
+    padding: 5px;
+    border-radius: 5px;
+    
+}
+
+#form_abm{
+    display: flex;
+    flex-direction: column;
+}
+
+/* BOTONES */
+button {
+    background-color: darkcyan; 
+    color: white; 
+    padding: 5px 15px;
+    border:  3px groove black;
+    border-radius: 5px;
+}
+
+button:hover{
+    background-color: cyan;
+}
+
+/* TABLA */
+#tabla_datos {
+    border-collapse: collapse;
+    width: 100%;
+    margin-top: 10px;
+}
+
+/* ENCABEZADO de la tabla */
+#tabla_datos thead th {
+    background-color: lightblue; 
+    color: black; 
+    padding: 10px;
+    border: 2px solid darkcyan;
+    text-align: center;
+}
+
+/* CUERPO de la tabla */
+th, td {
+    background-color: lightcyan;
+    color: black;
+    padding: 10px;
+    border: 2px solid darkcyan;
+    text-align: left;
+}
+
+p {
+    color: yellow;
+    background-color: black;
+    margin: 7px 0;
+}
