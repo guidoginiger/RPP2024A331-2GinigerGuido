@@ -131,20 +131,52 @@
                 <label for="tipo">Tipo: </label>
                 <select id="tipo" name="tipo">
                     <option value="" selected disabled>Seleccionar tipo </option>
-                    <option value="terrestre">Terrestre</option>
-                    <option value="aereo">Aereo</option>
+                    <option value="futbolista">Futbolista</option>
+                    <option value="profesional">Profesional</option>
                 </select>
             </div>
 
+            <!-- EQUIPO -->
+            <div class="contenedor">
+                <label for="equipo">Equipo: </label>
+                <input type="text" id="equipo" name="equipo">
+            </div>
+
+            <!-- POSICION -->
+            <div class="contenedor">
+                <label for="posicion">Posicion: </label>
+                <input type="text" id="posicion" name="posicion">
+            </div>
+
+            <!-- CANTGOLES -->
+            <div class="contenedor">
+                <label for="cant_Goles">CantGoles: </label>
+                <input type="number" id="cant_Goles" name="cant_Goles">
+            </div>
+
+            <!-- TITULO -->
+            <div class="contenedor">
+                <label for="titulo">Titulo: </label>
+                <input type="text" id="titulo" name="titulo">
+            </div>
+
+            <!-- FACULTAD -->
+            <div class="contenedor">
+                <label for="facultad">Facultad: </label>
+                <input type="text" id="facultad" name="facultad">
+            </div>
+
+            <!-- AÑOGRAD -->
+            <div class="contenedor">
+                <label for="ano_Grad">AñoGrad: </label>
+                <input type="number" id="ano_Grad" name="ano_Grad">
+            </div>          
+
             <div id="botones_fin_form"></div>
     
-            <!-- BOTONES ACEPTAR / MODIFICAR / ELIMINAR / CANCELAR -->
+            <!-- BOTONES AGREGAR / CANCELAR -->
             <div class="contenedor">
-                    <button type="button" id='botonAceptar' onclick="guardarDatos()">Aceptar </button>
-                    <!-- 
-                    <button type="button" id='botonModificar' onclick="modificarDatos()">Modificar </button>
-                    <button type="button" id='botonEliminar' onclick="eliminarVehiculo()">Eliminar </button>
-                    -->
+                    <button type="button" id='botonAceptar' onclick="guardarDatos()">Alta </button>
                     <button type="button" id="mostrarFormularioBtn" onclick="mostrarFormulario()">Cancelar </button>
             </div>
             
@@ -267,26 +299,27 @@
             mostrar();
         }
 
+        // PUNTO 4) c)
         function calcularEdadPromedio()
         {
             let filtro = document.getElementById('filtro').value;
-            let vehiculos_filtrados;
+            let personas_filtradas;
 
             if(filtro === 'todos')
             {
-                vehiculos_filtrados = vehiculos_instanciados_array;
+                personas_filtradas = personas_instanciadas_array;
             }
-            else if(filtro === 'aereo')
+            else if(filtro === 'futbolista')
             {
-                vehiculos_filtrados = vehiculos_instanciados_array.filter(vehiculo => vehiculo instanceof Aereo);
+                personas_filtradas = personas_instanciadas_array.filter(persona => persona instanceof Futbolista);
             }
-            else if (filtro === 'terrestre')
+            else if (filtro === 'profesional')
             {
-                vehiculos_filtrados = vehiculos_instanciados_array.filter(vehiculo => vehiculo instanceof Terrestre);
+                personas_filtradas = personas_instanciadas_array.filter(persona => persona instanceof Profesional);
             }
 
-            let suma = vehiculos_filtrados.reduce((acumulador, vehiculo) => acumulador + vehiculo.velMax, 0);
-            let promedio = (suma / vehiculos_filtrados.length).toFixed(2);
+            let suma = personas_filtradas.reduce((acumulador, persona) => acumulador + persona.edad, 0);
+            let promedio = (suma / personas_filtradas.length).toFixed(2);
 
             document.getElementById('input_edad_promedio').value = promedio;
         }
@@ -332,24 +365,24 @@
             cuerpoTabla.innerHTML += encabezado_html;
 
             let filtro = document.getElementById('filtro').value;
-            let vehiculos_filtrados;
+            let personas_filtradas;
 
             if(filtro === 'todos')
             {
-                vehiculos_filtrados = vehiculos_instanciados_array;
+                personas_filtradas = personas_instanciadas_array;
             }
-            else if(filtro === 'aereo')
+            else if(filtro === 'futbolista')
             {
-                vehiculos_filtrados = vehiculos_instanciados_array.filter(vehiculo => vehiculo instanceof Aereo);
+                personas_filtradas = personas_instanciadas_array.filter(persona => persona instanceof Futbolista);
             }
-            else if(filtro === 'terrestre')
+            else if(filtro === 'profesional')
             {
-                vehiculos_filtrados = vehiculos_instanciados_array.filter(vehiculo => vehiculo instanceof Terrestre);
+                personas_filtradas = personas_instanciadas_array.filter(persona => persona instanceof Profesional);
             }
 
             columnasCheckeadas.forEach(columna => {
                 document.getElementById(`titulo_${columna}`).addEventListener('click', () => {
-                    vehiculos_filtrados.sort((a, b) => {
+                    personas_filtradas.sort((a, b) => {
                         if(a[columna] < b[columna])
                         {
                             return -1; 
@@ -365,11 +398,12 @@
                 });
             });
 
-            vehiculos_filtrados.forEach(vehiculo => {
+            personas_filtradas.forEach(persona => {
                 let fila_html = "<tr>";
+
                 columnasCheckeadas.forEach(columna => {
-                    let dato_fila = vehiculo[columna] || "--";
-                    fila_html += `<td id="dato_fila_vehiculo_con_id_${vehiculo.id}_${columna}">${dato_fila}</td>`;
+                    let dato_fila = persona[columna] || "--";
+                    fila_html += `<td id="dato_fila_persona_con_id_${persona.id}_${columna}">${dato_fila}</td>`;
                 });
                 fila_html += "</tr>";
 
@@ -377,7 +411,7 @@
                 fila.innerHTML = fila_html;
 
                 fila.addEventListener('dblclick', () => {
-                    obtenerVehiculoABM(vehiculo.id);
+                    obtenerPersonaABM(persona.id);
                 });
                 
                 cuerpoTabla.appendChild(fila);
@@ -385,102 +419,106 @@
         }
 
 
-        function obtenerVehiculoABM(id_persona)
+        function obtenerPersonaABM(id_persona)
         {
             document.getElementById('id_persona').value = id_persona;
 
             document.getElementById('formulario_datos').style.display = 'none';
             document.getElementById('mostrarFormularioBtn').style.display = 'block';
             document.getElementById('formulario_abm').style.display = 'block';            
-            document.getElementById('botonAceptar').style.display = 'none'; 
-            document.getElementById('botonModificar').style.display = 'block';
-            document.getElementById('botonEliminar').style.display = 'block';
+            document.getElementById('botonAceptar').style.display = 'none';
 
             const camposAdicionales = document.getElementById('botones_fin_form');
             camposAdicionales.innerHTML = '';
 
-            let vehiculo = vehiculos_instanciados_array.find(vehiculo => vehiculo.id === id_persona);
-            document.getElementById('modelo').value = vehiculo.modelo;
-            document.getElementById('anoFab').value = vehiculo.anoFab;
-            document.getElementById('velMax').value = vehiculo.velMax;
+            let persona = personas_instanciadas_array.find(persona => persona.id === id_persona);
+            document.getElementById('nombre').value = persona.nombre;
+            document.getElementById('apellido').value = persona.apellido;
+            document.getElementById('edad').value = persona.edad;
 
             let tipo = document.getElementById('tipo');
-            if(vehiculo instanceof Terrestre)
+            if(persona instanceof Futbolista)
             {
-                tipo.value = 'terrestre';
+                tipo.value = 'futbolista';
             }
             else
             {
-                tipo.value = 'aereo';
+                tipo.value = 'profesional';
             }
 
             mostrarTiposSeleccionados();
 
-            if(tipo.value == 'terrestre')
+            if(tipo.value == 'futbolista')
             {
-                document.getElementById('cantPue').value = vehiculo.cantPue;
-                document.getElementById('cantRue').value = vehiculo.cantRue;
+                document.getElementById('equipo').value = persona.equipo;
+                document.getElementById('posicion').value = persona.posicion;
+                document.getElementById('cant_Goles').value = persona.cantidadGoles;
             }
             else
             {
-                document.getElementById('altMax').value = vehiculo.altMax;
-                document.getElementById('autonomia').value = vehiculo.autonomia;
+                document.getElementById('titulo').value = persona.titulo;
+                document.getElementById('facultad').value = persona.facultad;
+                document.getElementById('ano_Grad').value = persona.anoGraduacion;
             }
         }
 
         function modificarDatos()
         {
             let id_persona = document.getElementById('id_persona').value;
-            let modelo = document.getElementById('modelo').value;
-            let anoFab = document.getElementById('anoFab').value;
-            let velMax = document.getElementById('velMax').value;
-            let cantPue = document.getElementById('cantPue');
-            let cantRue = document.getElementById('cantRue');
-            let altMax = document.getElementById('altMax');
-            let autonomia = document.getElementById('autonomia');
+            let nombre = document.getElementById('nombre').value;
+            let apellido = document.getElementById('apellido').value;
+            let edad = document.getElementById('edad').value;
             let tipo = document.getElementById('tipo').value;
+            let equipo = document.getElementById('equipo');
+            let posicion = document.getElementById('posicion');
+            let cantidad_goles = document.getElementById('cant_Goles');
+            let titulo= document.getElementById('titulo');
+            let facultad= document.getElementById('facultad');
+            let ano_graduacion= document.getElementById('ano_Grad');            
 
             let mensaje = document.getElementById("mensaje_error_abm");
 
-            let vehiculo = vehiculos_instanciados_array.find(vehiculo => vehiculo.id === id_persona);
+            let persona = personas_instanciadas_array.find(persona => persona.id === id_persona);
 
-            if (!vehiculo)
+            if (!persona)
             {
-                mensaje.innerText = "ERROR. No se encontró el vehículo";
+                mensaje.innerText = "ERROR. No se encontró la persona";
                 return;
             }
 
-            if (modelo === "" || anoFab === "" || anoFab <= 1885 || isNaN(velMax) || velMax === "" || velMax < 1)
+            if (nombre === "" || apellido === "" ||  isNaN(edad.value) || edad.value <= 15)
             {
-                mensaje.innerText = "ERROR. Faltan completar datos. (El año de fabricacion tiene que ser mayor a 1885 y la velocidad mayor a 0)";
-            } 
+                mensaje.innerText = "ERROR. Faltan completar datos. (La edad tiene que ser mayor a 15)";
+            }
             else {
-                vehiculo.modelo = modelo;
-                vehiculo.anoFab = anoFab; 
-                vehiculo.velMax = velMax; 
+                persona.nombre = nombre;
+                persona.apellido = apellido; 
+                persona.edad = edad; 
 
-                if (tipo === 'terrestre') {
-                    if (isNaN(cantPue.value) || cantPue.value === "" || isNaN(cantRue.value) || cantRue.value === "")
-                    {
-                        mensaje.innerText = "ERROR. Faltan completar datos";
-                        return;
-                    } else {
-                        vehiculo.cantPue = cantPue.value; 
-                        vehiculo.cantRue = cantRue.value; 
-                    }
-                }
-                else if (tipo === 'aereo') 
+                if (tipo === 'futbolista')
                 {
-                    if (isNaN(altMax.value) || altMax.value === "" || isNaN(autonomia.value) || autonomia.value === ""){
-                        mensaje.innerText = "ERROR. Faltan completar datos";
+                    if (equipo.value === "" || posicion.value === "" || isNaN(cantidad_goles.value) || cantidad_goles.value === "" || cantidad_goles.value < -1)
+                    {
+                        mensaje.innerText = "ERROR. Faltan completar datos. (La cantidad de goles tiene que ser mayor o igual a 0)";
                         return;
                     } else {
-                        vehiculo.altMax = altMax.value; 
-                        vehiculo.autonomia = autonomia.value; 
+                        persona.equipo = equipo.value; 
+                        persona.posicion = posicion.value;
+                        persona.cantidad_goles = cantidad_goles.value;
                     }
                 }
-
-                alert(`Los datos de ${vehiculo.modelo} se modificaron`);
+                else if (tipo === 'profesional') 
+                {
+                    if (titulo.value === "" || facultad.value === "" || isNaN(ano_graduacion.value) || ano_graduacion.value === "" || ano_graduacion.value < 1950)
+                    {
+                        mensaje.innerText = "ERROR. Faltan completar datos. (El año de graduación tiene que ser mayor o igual a 1950)";
+                        return;
+                    } else {
+                        persona.titulo = titulo.value; 
+                        persona.facultad = facultad.value;
+                        persona.ano_graduacion = ano_graduacion.value;
+                    }
+                }
 
                 mostrarFormulario();
             }
@@ -499,22 +537,17 @@
             camposAdicionales.innerHTML = '';
         }
 
-        function eliminarVehiculo()
+        function eliminarPersona()
         {            
             let id_persona = document.getElementById('id_persona').value;
-            let indice = vehiculos_instanciados_array.findIndex(vehiculo => vehiculo.id === id_persona);
-            let vehiculo = vehiculos_instanciados_array[indice];
+            let indice = personas_instanciadas_array.findIndex(persona => persona.id === id_persona);
+            let persona = personas_instanciadas_array[indice];
 
-            if (indice === -1) {
-                alert('Vehículo no encontrado.');
-                return; 
-            }
-
-            let confirmar_eliminar = confirm(`¿Eliminar ${vehiculo}?`);
+            let confirmar_eliminar = confirm(`¿Eliminar ${persona}?`);
 
             if(confirmar_eliminar == true)
             {
-                vehiculos_instanciados_array.splice(indice, 1);
+                personas_instanciadas_array.splice(indice, 1);
 
                 mostrarFormulario();
                 mostrar();
@@ -526,7 +559,7 @@
             let cuerpoTabla = document.getElementById('cuerpo_tabla');
             cuerpoTabla.innerHTML = "";
 
-            let modelo = document.getElementById('modelo');
+            let nombre = document.getElementById('nombre');
             modelo.innerText = "";
 
             document.querySelectorAll('input[type="checkbox"]').forEach(checkbox => {
@@ -542,51 +575,53 @@
             let mensaje = document.getElementById("mensaje_error_abm");
             mensaje.innerText = "";
 
-            let id = vehiculos_instanciados_array.length + 1;
-            let modelo = document.getElementById('modelo').value;
-            let anoFab = document.getElementById('anoFab').value;
-            let velMax = parseInt(document.getElementById('velMax').value);
+            let id = personas_instanciadas_array.length + 1;
+            let nombre = document.getElementById('nombre').value;
+            let apellido = document.getElementById('apellido').value;
+            let edad = parseInt(document.getElementById('edad').value);
             let tipo = document.getElementById('tipo').value;
 
-            if (modelo === "" || anoFab <= 1885 || isNaN(velMax) || velMax < 0 || !tipo)
+            if (nombre === "" || apellido === "" || isNaN(edad) || edad <= 15 || !tipo)
             {
-                mensaje.textContent = "ERROR. Ingresar datos en todos los campos. (El año de fabricación tiene que ser mayor a 1885)";
+                mensaje.textContent = "ERROR. Ingresar datos en todos los campos. (La edad tiene que ser mayor a 15)";
                 faltan_datos = true;
             }
 
-            if(tipo === 'terrestre')
+            if(tipo === 'futbolista')
             {
-                let cantPue = parseFloat(document.getElementById('cantPue').value);
-                let cantRue = document.getElementById('cantRue').value;
+                let equipo = document.getElementById('equipo').value;
+                let posicion = document.getElementById('posicion').value;
+                let cantidad_goles = parseInt(document.getElementById('cant_Goles').value);
 
-                if (isNaN(cantPue) || cantPue < 0 || isNaN(cantRue) || cantRue < 1)
+                if (equipo === "" || posicion === "" || isNaN(cantidad_goles) || cantidad_goles.value < -1)
                 {
-                    mensaje.textContent = "ERROR. Reingrese cantidad de puertas y ruedas correspondientes.";
+                    mensaje.textContent = "ERROR. Reingrese datos válidos.";
                     faltan_datos = true;
                 }
 
                 if (!faltan_datos) 
                 {
-                    let nuevoTerrestre = new Terrestre(id, modelo, anoFab, velMax, cantPue, cantRue);
-                    vehiculos_instanciados_array.push(nuevoTerrestre);
+                    let nuevoFutbolista = new Futbolista(id, nombre, apellido, edad, equipo, posicion, cantidad_goles);
+                    personas_instanciadas_array.push(nuevoFutbolista);
                 }
 
             }
-            else if(tipo === 'aereo')
+            else if(tipo === 'profesional')
             {
-                let altMax = parseFloat(document.getElementById('altMax').value);
-                let autonomia = parseFloat(document.getElementById('autonomia').value);
+                let titulo = document.getElementById('titulo').value;
+                let facultad = document.getElementById('facultad').value;
+                let ano_graduacion = parseInt(document.getElementById('ano_Grad').value);
                 
-                if (isNaN(altMax) || isNaN(autonomia) || altMax < 1 || autonomia <= 0)
+                if (isNaN(titulo) || isNaN(facultad) || ano_graduacion < 1950 || isNaN(ano_graduacion) <= 0)
                 {
-                    mensaje.textContent = "ERROR. Reingrese altura máxima y autonomia válidas. (Tienen que ser mayor a 0)";
+                    mensaje.textContent = "ERROR. Reingrese datos válidas. (El año de graduacion tienen que ser mayor a 1950)";
                     faltan_datos = true;
                 }
 
                 if (!faltan_datos)
                 {
-                    let nuevoAereo = new Aereo(id, modelo, anoFab, velMax, altMax, autonomia);
-                    vehiculos_instanciados_array.push(nuevoAereo);
+                    let nuevoProfesional = new Aereo(id, nombre, apellido, edad, titulo, facultad, ano_graduacion);
+                    personas_instanciadas_array.push(nuevoProfesional);
                 }
             }
 
@@ -603,22 +638,26 @@
             const camposAdicionales = document.getElementById('botones_fin_form');
             camposAdicionales.innerHTML = ''; 
 
-            if(tipo === 'terrestre')
+            if(tipo === 'futbolista')
             {
                 camposAdicionales.innerHTML = `
-                   <label for="cantPue">Cantidad de Puertas:</label>
-                   <input type="number" id="cantPue" name="cantPue">
-                   <label for="cantRue">Cantidad de Ruedas:</label>
-                   <input type="number" id="cantRue" name="cantRue">
+                   <label for="equipo">Equipo:</label>
+                   <input type="text" id="equipo" name="equipo">
+                   <label for="posicion">Posicion:</label>
+                   <input type="text" id="posicion" name="posicion">
+                   <label for="cant_Goles">Cantidad de Goles:</label>
+                   <input type="number" id="cant_Goles" name="cant_Goles">
                `;
             }
-            else if(tipo === 'aereo')
+            else if(tipo === 'profesional')
             {
                 camposAdicionales.innerHTML = `
-                   <label for="altMax">Altura Maxima: </label>
-                   <input type="number" id="altMax" name="altMax">
-                   <label for="autonomia">Autonomia: </label>
-                   <input type="number" id="autonomia" name="autonomia">
+                   <label for="titulo">Titulo: </label>
+                   <input type="text" id="titulo" name="titulo">
+                   <label for="facultad">Facultad: </label>
+                   <input type="text" id="facultad" name="facultad">
+                   <label for="ano_Grad">Año de Graduacion: </label>
+                   <input type="number" id="ano_Grad" name="ano_Grad">
                `;
             }
         }
