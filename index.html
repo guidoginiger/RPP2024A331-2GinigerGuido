@@ -31,10 +31,10 @@
             <input type="checkbox" id="edad_checkbox" name="edad" value="edad" checked> Edad
             <input type="checkbox" id="equipo_checkbox" name="equipo" value="equipo" checked> Equipo
             <input type="checkbox" id="posicion_checkbox" name="posicion" value="posicion" checked> Posicion
-            <input type="checkbox" id="cantGoles_checkbox" name="cant_Goles" value="cantGoles" checked> CantGoles
+            <input type="checkbox" id="cantGoles_checkbox" name="cant_Goles" value="cantidadGoles" checked> CantGoles
             <input type="checkbox" id="titulo_checkbox" name="titulo" value="titulo" checked> Titulo
             <input type="checkbox" id="facultad_checkbox" name="facultad" value="facultad" checked> Facultad
-            <input type="checkbox" id="anoGrad_checkbox" name="ano_Grad" value="añoGrad" checked> AñoGrad
+            <input type="checkbox" id="anoGrad_checkbox" name="ano_Grad" value="añoGraduacion" checked> AñoGrad
         </div>
 
         <!-- CALCULAR EDAD PROMEDIO -->
@@ -136,48 +136,14 @@
                 </select>
             </div>
 
-            <!-- EQUIPO -->
-            <div class="contenedor">
-                <label for="equipo">Equipo: </label>
-                <input type="text" id="equipo" name="equipo">
-            </div>
-
-            <!-- POSICION -->
-            <div class="contenedor">
-                <label for="posicion">Posicion: </label>
-                <input type="text" id="posicion" name="posicion">
-            </div>
-
-            <!-- CANTGOLES -->
-            <div class="contenedor">
-                <label for="cant_Goles">CantGoles: </label>
-                <input type="number" id="cant_Goles" name="cant_Goles">
-            </div>
-
-            <!-- TITULO -->
-            <div class="contenedor">
-                <label for="titulo">Titulo: </label>
-                <input type="text" id="titulo" name="titulo">
-            </div>
-
-            <!-- FACULTAD -->
-            <div class="contenedor">
-                <label for="facultad">Facultad: </label>
-                <input type="text" id="facultad" name="facultad">
-            </div>
-
-            <!-- AÑOGRAD -->
-            <div class="contenedor">
-                <label for="ano_Grad">AñoGrad: </label>
-                <input type="number" id="ano_Grad" name="ano_Grad">
-            </div>          
-
             <div id="botones_fin_form"></div>
     
-            <!-- BOTONES AGREGAR / CANCELAR -->
+            <!-- BOTONES AGREGAR / MODIFICAR / ELIMINAR / CANCELAR -->
             <div class="contenedor">
-                    <button type="button" id='botonAceptar' onclick="guardarDatos()">Alta </button>
-                    <button type="button" id="mostrarFormularioBtn" onclick="mostrarFormulario()">Cancelar </button>
+                <button type="button" id='botonAceptar' onclick="guardarDatos()">Alta</button>
+                <button type="button" id="mostrarFormularioBtn" onclick="mostrarFormulario()">Cancelar</button>
+                <button type="button" id="botonModificar" onclick="modificarDatos()">Modificar</button>
+                <button type="button" id='botonEliminar' onclick="eliminarPersona()">Eliminar</button>
             </div>
             
         </form>
@@ -223,18 +189,18 @@
 
         class Profesional extends Persona
         {
-            constructor(id, nombre, apellido, edad, titulo, facultad, anoGraduacion)
+            constructor(id, nombre, apellido, edad, titulo, facultad, añoGraduacion)
             {
                 super(id, nombre, apellido, edad);
 
                 this.titulo = titulo;
                 this.facultad = facultad;
-                this.anoGraduacion = anoGraduacion;
+                this.añoGraduacion = añoGraduacion;
             }
 
             toString()
             {
-                return `${super.toString()}, Titulo: ${this.titulo}, Facultad: ${this.facultad}, Año de Graduación: ${this.anoGraduacion}`;
+                return `${super.toString()}, Titulo: ${this.titulo}, Facultad: ${this.facultad}, Año de Graduación: ${this.añoGraduacion}`;
             }
             
         }
@@ -252,9 +218,9 @@
                 let personaFutbolista = new Futbolista(persona.id, persona.nombre, persona.apellido, persona.edad, persona.equipo, persona.posicion, persona.cantidadGoles);
                 personas_instanciadas_array.push(personaFutbolista);                
             }
-            else if(persona.titulo !== undefined && persona.facultad !== undefined && persona.anoGraduacion!== undefined)
+            else if(persona.titulo !== undefined && persona.facultad !== undefined && persona.añoGraduacion!== undefined)
             {
-                let personaProfesional = new Profesional(persona.id, persona.nombre, persona.apellido, persona.edad, persona.titulo, persona.facultad, persona.anoGraduacion);
+                let personaProfesional = new Profesional(persona.id, persona.nombre, persona.apellido, persona.edad, persona.titulo, persona.facultad, persona.añoGraduacion);
                 personas_instanciadas_array.push(personaProfesional);
             }
         });
@@ -295,7 +261,6 @@
             document.getElementById('tabla_cuerpo_inicial').style.display = 'table-row-group'
 
             vaciarFormularioABM();
-            vaciarFormularioPrincipal();
             mostrar();
         }
 
@@ -454,11 +419,11 @@
                 document.getElementById('posicion').value = persona.posicion;
                 document.getElementById('cant_Goles').value = persona.cantidadGoles;
             }
-            else
+            else if(tipo.value == 'profesional')
             {
                 document.getElementById('titulo').value = persona.titulo;
                 document.getElementById('facultad').value = persona.facultad;
-                document.getElementById('ano_Grad').value = persona.anoGraduacion;
+                document.getElementById('ano_Grad').value = persona.añoGraduacion;
             }
         }
 
@@ -612,7 +577,7 @@
                 let facultad = document.getElementById('facultad').value;
                 let ano_graduacion = parseInt(document.getElementById('ano_Grad').value);
                 
-                if (isNaN(titulo) || isNaN(facultad) || ano_graduacion < 1950 || isNaN(ano_graduacion) <= 0)
+                if (titulo === "" || facultad === "" || isNaN(ano_graduacion) || ano_graduacion.value < 1950)
                 {
                     mensaje.textContent = "ERROR. Reingrese datos válidas. (El año de graduacion tienen que ser mayor a 1950)";
                     faltan_datos = true;
@@ -620,7 +585,7 @@
 
                 if (!faltan_datos)
                 {
-                    let nuevoProfesional = new Aereo(id, nombre, apellido, edad, titulo, facultad, ano_graduacion);
+                    let nuevoProfesional = new Profesional(id, nombre, apellido, edad, titulo, facultad, ano_graduacion);
                     personas_instanciadas_array.push(nuevoProfesional);
                 }
             }

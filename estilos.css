@@ -19,7 +19,7 @@ h1{
     border-radius: 10px;
 }
 
-.flex-container{
+.contenedor{
     display: flex;
     align-items: center;
     padding: 5px 0;
@@ -68,12 +68,12 @@ button:hover{
 }
 
 /* ENCABEZADO de la tabla */
-#tabla_datos thead th {
-    background-color: lightblue; 
-    color: black; 
-    padding: 10px;
-    border: 2px solid darkcyan;
+.encabezado-tabla {
+    background-color: darkcyan;;
+    color: black;
+    border: 2px solid lightcyan;
     text-align: center;
+    padding: 7px;    
 }
 
 /* CUERPO de la tabla */
@@ -89,5 +89,4 @@ p {
     color: yellow;
     background-color: black;
     margin: 7px 0;
-    border: 2px dashed yellow;
 }
